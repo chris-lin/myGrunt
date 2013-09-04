@@ -1,11 +1,12 @@
 My Grunt
 ========
-description:
+# description: #
 custom individual grunt
 
-command line :
+# command line: #
+default: uglify, compress 
+^
 
-## default: uglify, compress ##
-grunt run:{project}
+  grunt run:{project}
 
 
