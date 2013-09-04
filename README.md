@@ -4,7 +4,8 @@ My Grunt
 custom individual grunt
 
 # command line: #
-default: uglify, compress 
+default: uglify, compress
+-------------------------
 ::
 
   grunt run:{project}
