@@ -51,11 +51,18 @@ module.exports = function(grunt) {
     watch: {
       options: {
         // Start a live reload server on the default port 35729
+        // client website insert into <script src="http://localhost:35729/livereload.js"></script>
         livereload: true,
+      },
+      css: {
+        files: ['**/*.css'],
+      },
+      js: {
+        files: ['**/*.js'],
       },
       html: {
         files: ['**/*.html'],
-      },
+      }
     }
   });
 
