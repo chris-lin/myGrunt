@@ -23,8 +23,8 @@ module.exports = function(grunt) {
       //  }
       //},
       build: {
-        src:  '<%= pro.name %>/public/*.js',
-        dest: '<%= pro.name %>/public/build/<%= pro.name %>.min.js'
+        src:  '<%= pro.name %>/public/js/*.js',
+        dest: '<%= pro.name %>/public/js/build/<%= pro.name %>.min.js'
       }
     },
     jshint: {
