@@ -1,14 +1,36 @@
 My Grunt
 ========
-# description: #
+## description: 
 custom individual grunt
 
-# command line: #
-default: uglify, compress
+```shell
+npm install -g grunt-cli
+```
 
-grunt run:{project}
+## command line: 
 
-task:
+####  Start 
+run your project make task of compress and uglify 
 
-grunt run:{project}:{task}
+```shell
+grunt {project}
+```
+ex.
+```shell
+grunt test
+```
+
+run your project make single task
+```shell
+grunt test:uglify
+```
+
+#### Live Reload
+As soon as your website modify files , and the browser is refreshed.
+
+```shell
+grunt reload
+```
+
+
 
