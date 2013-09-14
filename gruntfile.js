@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   var CONFIG = {
     argu: [],
     zippath: 'build',
-    tasks: ['uglify', 'compress'],
+    tasks: ['concat', 'cssmin', 'uglify', 'compress'],
     pro: process.argv[2].replace(/:.*/,'')
   }
   var config = CONFIG;
@@ -10,6 +10,18 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     //pkg: grunt.file.readJSON('<%= pro.name %>/package.json'),
+    concat: {
+      options: {
+        separator: ';',
+          stripBanners: true
+      },
+      dist: {
+        src: [
+          '<%= pro.name %>/public/js/*.js'
+        ],
+        dest: '<%= pro.name %>/public/assets/js/<%= pro.name %>.js'
+      }
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -23,8 +35,20 @@ module.exports = function(grunt) {
       //  }
       //},
       build: {
-        src:  '<%= pro.name %>/public/js/*.js',
-        dest: '<%= pro.name %>/public/js/build/<%= pro.name %>.min.js'
+        src:  '<%= pro.name %>/public/assets/js/<%= pro.name %>.js',
+        dest: '<%= pro.name %>/public/assets/js/<%= pro.name %>.min.js'
+      }
+    },
+    cssmin: {
+      options: {
+        keepSpecialComments: 0
+      },
+      compress: {
+        files: {
+          '<%= pro.name %>/public/assets/css/default.css': [
+            '<%= pro.name %>/public/css/*.css'
+          ]
+        }
       }
     },
     jshint: {
@@ -39,12 +63,12 @@ module.exports = function(grunt) {
     compress: {
       zip: {
         options: {
-          archive: config.zippath + '/<%= pro.name %>.zip'
+          archive: config.zippath + '/<%= pro.name %>-<%= pkg.version %>.zip'
         },
         files: [
           //{expand: true, cwd: 'test/fixtures/', src: ['**/*']}
           //{expand: true, src: ['**/*'], dest: 'helloworld/'}
-          {expand: true, src: ['<%= pro.name %>/**'], dest: '<%= pro.name %>'}
+          {expand: true, src: ['<%= pro.name %>/**'], dest: ''}
         ]
       }
     },
@@ -69,6 +93,8 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
@@ -89,6 +115,12 @@ module.exports = function(grunt) {
         break;
       case 'compress':
         grunt.task.run('compress');
+        break;
+      case 'concat':
+        grunt.task.run('concat');
+        break;
+      case 'cssmin':
+        grunt.task.run('cssmin');
         break;
       default:
         grunt.task.run(tasks);
